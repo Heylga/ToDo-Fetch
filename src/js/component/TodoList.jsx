@@ -63,7 +63,7 @@ const TodoList = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            setInputValue("");
+            setInputMessage("");
             setTask(newTask);
             setCounter(counter + 1);
           });
@@ -130,15 +130,37 @@ const TodoList = () => {
                     type="text"
                     size="72.5"
                     placeholder="What's need to be done?"
-                    onChange={addTask}
+                    onChange={(e) => setInputMessage(e.target.value)}
                     value={inputMessage}
                     onKeyPressCapture={(e) => handleKey(e)}
                     />
 
-
-
                 </form>
 
+
+                <ul className="todo-list list-group ">
+                {task.length > 0 &&
+                task.map((t, key) => (
+                  <li key={key} className="tasklist list-group-item index">
+                    {t.label}
+                    <button
+                      className="btn DelItem"
+                      onClick={() => DeleteItems(key)}
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  </li>
+                ))}
+
+				<div className="footer">
+					<li className="taskLeft d-flex justify-content-center list-group-item">
+						<h5>{task.length} item left</h5>
+					</li>
+					<div className="list-group-item shadow bottom "></div>
+					<div className="list-group-item shadow bottom-leaf"></div>
+					<div className="list-group-item shadow bottom-last"></div>
+				</div>
+			</ul>
 
             </div>
 
